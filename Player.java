@@ -1,5 +1,5 @@
 /* Player.java */
-/* Modified Player.java from github.com/spywhere */
+/* Modified Player.java from github.com/zachcannon */
 
 import java.util.Random;
 
