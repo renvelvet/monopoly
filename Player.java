@@ -4,7 +4,6 @@
 import java.util.Random;
 
 public class Player implements Dadu {
-    private Dadu dadu;
     private int totalFace; // Total face dari dadu yang dilempar
     private int rollValue = 0;
     static Random r = new r(System.nanoTime());
@@ -16,10 +15,9 @@ public class Player implements Dadu {
     private String name;
 
     // Constructor
-    public Player(Tile currentPosition, Dadu dadu)
+    public Player(Tile currentPosition)
     {
         this.currentPosition = currentPosition;
-        this.dadu = dadu;
         this.money = 20000;
     }
 
@@ -46,10 +44,10 @@ public class Player implements Dadu {
     private void rollTheDice()
     {
         totalFace = 0;
-        dadu.rollDice();
-        totalFace += dadu.getLastRollValue();
-        dadu.rollDice();
-        totalFace += dadu.getLastRollValue();
+        rollDice();
+        totalFace += getLastRollValue();
+        rollDice();
+        totalFace += getLastRollValue();
     }
     private int getTotalFace()
     {
