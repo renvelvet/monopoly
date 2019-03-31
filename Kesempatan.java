@@ -10,14 +10,26 @@ public class Kesempatan extends Tile{
 			case 0 :
 				//advance to GoStart
 				System.out.println("Advance to GoStart.");
+				if(player.getPosition()!=0){
+					player.gain(200);
+				}
+				player.setPosition(0);
 				break;
 			case 1 :
 				//advance to Bengawan Solo
 				System.out.println("Advance to Bengawan Solo. If you pass Go, collect $200.");
+				if(player.getPosition()>24){
+					player.gain(200);
+				}
+				player.setPosition(24);
 				break;
 			case 2 :
 				//advance to Kebun Raya Bogor
 				System.out.println("Advance to Kebun Raya Bogor. If you pass Go, collect $200.");
+				if(player.getPosition()>11){
+					player.gain(200);
+				}
+				player.setPosition(11);
 				break;
 			case 3 :
 				//advance to nearest Utility
@@ -34,6 +46,7 @@ public class Kesempatan extends Tile{
 			case 5 :
 				//collect 50
 				System.out.println("Bank pays you dividend of $50.");
+				player.gain(50);
 				break;
 			case 6 :
 				//Jail Free card
@@ -43,11 +56,13 @@ public class Kesempatan extends Tile{
 			case 7 :
 				//go back 3 spaces
 				System.out.println("Go Back Three Spaces.");
+				player.setPosition(player.getPosition() - 3);
 				break;
 			case 8 :
 				//go to jail
 				//do not pass GoStart, do not collect 200
 				System.out.println("Go to Jail. Go directly to Jail. Do not pass Go, do not collect $200.");
+				player.setPosition(10);
 				break;
 			case 9 :
 				//for each house pay 25, for each hotel pay 100
