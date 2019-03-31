@@ -1,13 +1,15 @@
 import java.util.ArrayList;
 
 public class Lot extends Tile implements Property {
-    private int totalRent;
-    private int grupSize;
-    private int homeBuilt = 0;
 
-    public Lot(String name, int price) {
-        this.name = name;
-        this.price = price;
+    private int homeBuilt;
+    private boolean wantToBuiltHome;
+
+    public Lot(String name, boolean isOwnable, int groupNumber, int price) {
+
+        super(name,true, groupNumber, price);
+        this.wantToBuiltHome = false;
+        this.homeBuilt = 0;
         }
 
     public void setGrupSize(int grupSize) {
@@ -18,24 +20,34 @@ public class Lot extends Tile implements Property {
         this.totalRent = totalRent;
     }
 
-    public void tileAction(Player player, int ownedBy)
-    {
-        if(ownedBy == 0)
-        {
-            buy(player);
-        } else if (ownedBy == player.getId())
-        {
-
-        }else
-        {
-            rent(player);
-        }
+    public void askOption() {
+        System.out.println("1. Beli Lot");
+        System.out.println("2. Bangung Rumah");
+        System.out.println("3. Lewati");
+        System.out.print("Opsi yang dipilih: ");
     }
 
-    // abstract method untuk rent
-    void rent(Player player)
+    public void tileAction(Player player)
     {
-        if (player.getGroupownage()[groupNumber] == getTotalTileInGroup()) {
+        rent(player);
+    }
+
+    public void chooseAbleAction(Player player, int i) {
+
+        if (ownedBy == null && i == 1) {
+            buy(player);
+        } else if (ownedBy == null && i == 3){
+            // change turn
+        } else if ((ownedBy.equals(player) && ownedBy.getGroupownage()[groupNumber] == getTotalTileInGroup()) && i == 2) {
+            builtHome(player);
+        } else if ((ownedBy.equals(player) && ownedBy.getGroupownage()[groupNumber] == getTotalTileInGroup()) && i == 3) {
+            // change turn
+        }
+    }
+    // abstract method untuk rent
+    public void rent(Player player)
+    {
+        if (ownedBy.getGroupownage()[groupNumber] == getTotalTileInGroup()) {
             if (homeBuilt == 0) {
                 setTotalRent(price / 4);
             }
@@ -61,9 +73,14 @@ public class Lot extends Tile implements Property {
     }
 
     // method untuk membeli
-    void buy(Player player)
+    public void buy(Player player)
     {
+        player.cost(price);
+        ownedBy = player;
 
+        int[] a = player.getGroupownage();
+        a[groupNumber] = a[groupNumber] + 1;
+        player.setGroupownage(a);
     }
 
     public void builtHome(Player player)
@@ -71,10 +88,14 @@ public class Lot extends Tile implements Property {
         if (player.getGroupownage()[groupNumber] == getTotalTileInGroup() && homeBuilt <= 4) {
                 this.homeBuilt++;
         }
+        else
+        {
+            System.out.println("Total lot yang dibeli belum sekompleks");
+        }
     }
 
     // Menghitung jumlah tile yang dimiliki dalam satu grup
-    int getTotalTileInGroup()
+    public int getTotalTileInGroup()
     {
         if (groupNumber == 1 || groupNumber == 8)
         {

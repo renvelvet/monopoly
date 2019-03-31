@@ -12,4 +12,5 @@ interface Property {
     // method untuk membeli
     void buy(Player player);
 
+
 }
