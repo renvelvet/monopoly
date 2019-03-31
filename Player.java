@@ -9,6 +9,7 @@ public class Player //implements Runnable
 	private String name;
 	private int money;
 	private boolean alive;
+	public static int moneys;
 
 	//for other purpose
 	private int position;
@@ -55,12 +56,18 @@ public class Player //implements Runnable
 		money =- loss;
 		System.out.println("Membayar "+ loss+ " rupiah");
 
-		if (money <=0){
+		if (money + moneys <=0){
 			//try hypotic
 			alive = false;
 			System.out.println("Mati");
 		}
 	}
+
+	public void monify(int modifier){
+		money += modifier;
+		moneys -= modifier;
+	}
+
 
 	public void move (int step){
 		if (jailed && !dice.isDouble()){
