@@ -11,6 +11,70 @@ public abstract class Tile {
     protected int grupSize;
     protected boolean chooseAble;
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public boolean isOwnable() {
+        return isOwnable;
+    }
+
+    public void setOwnable(boolean ownable) {
+        isOwnable = ownable;
+    }
+
+    public int getGroupNumber() {
+        return groupNumber;
+    }
+
+    public void setGroupNumber(int groupNumber) {
+        this.groupNumber = groupNumber;
+    }
+
+    public Player getOwnedBy() {
+        return ownedBy;
+    }
+
+    public void setOwnedBy(Player ownedBy) {
+        this.ownedBy = ownedBy;
+    }
+
+    public int getTotalRent() {
+        return totalRent;
+    }
+
+    public void setTotalRent(int totalRent) {
+        this.totalRent = totalRent;
+    }
+
+    public int getGrupSize() {
+        return grupSize;
+    }
+
+    public void setGrupSize(int grupSize) {
+        this.grupSize = grupSize;
+    }
+
+    public boolean isChooseAble() {
+        return chooseAble;
+    }
+
+    public void setChooseAble(boolean chooseAble) {
+        this.chooseAble = chooseAble;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
     // Untuk Property
     public Tile(String name, boolean isOwnable, int groupNumber, int price) {
         this.name = name;
