@@ -20,10 +20,13 @@ public class Lot extends Tile implements Property {
 
     public void tileAction(Player player, int ownedBy)
     {
-        if(ownedBy == player.getId())
+        if(ownedBy == 0)
         {
             buy(player);
-        } else
+        } else if (ownedBy == player.getId())
+        {
+
+        }else
         {
             rent(player);
         }
@@ -32,14 +35,29 @@ public class Lot extends Tile implements Property {
     // abstract method untuk rent
     void rent(Player player)
     {
-        if (player.getGroupownage()[groupNumber] == getTotalTileInGroup())
+        if (player.getGroupownage()[groupNumber] == getTotalTileInGroup()) {
+            if (homeBuilt == 0) {
+                setTotalRent(price / 4);
+            }
+            if (homeBuilt == 1) {
+                setTotalRent(price / 2);
+            }
+            if (homeBuilt == 2) {
+                setTotalRent(price);
+            }
+            if (homeBuilt == 3) {
+                setTotalRent(price * 2);
+            }
+            if (homeBuilt == 4) {
+                setTotalRent(price * 4);
+            }
+        } else
         {
-            if
-                setTotalRent(price/4);
-            if
-                setTotalRent();
+            setTotalRent(price / 8);
         }
 
+        ownedBy.gain(totalRent);
+        player.cost(totalRent);
     }
 
     // method untuk membeli
@@ -66,19 +84,6 @@ public class Lot extends Tile implements Property {
             setGrupSize(3);
         }
         return grupSize;
-    }
-
-    protected void rent(Player player) {
-        if (getTotalGroupTileOwned() == this.myTileGroup.size())
-        {
-            totalRent = totalRent/4;
-        } else
-        {
-            totalRent = totalRent/8;
-        }
-
-        player.changeMoney(-1*totalRent);
-        owner.changeMoney(totalRent);
     }
 
 }
