@@ -13,7 +13,7 @@ public class Board {
         tile[2] = new DanaUmum();
         tile[4] = new PajakJalan();
         tile[7] = new Kesempatan();
-        tile[10] = new J();
+        tile[10] = new Jail();
         tile[17] = new DanaUmum();
         tile[20] = new FreePark();
         tile[22] = new Kesempatan();
