@@ -4,7 +4,7 @@ public class Dadu{
 	private int a;
 	private int b;
 	private boolean dobel;
-	Random r;
+	Random r = new Random();
 	
 	public Dadu(){
 		a = 1 + r.nextInt(6);
@@ -14,7 +14,7 @@ public class Dadu{
 		} else {
 			dobel = false;
 		}
-		System.out.println("Dadu: "+a+" dan "+b);
+		//System.out.println("Dadu: "+a+" dan "+b);
 	}
 	
 	public void roll(){

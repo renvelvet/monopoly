@@ -9,7 +9,7 @@ public class Main{
     public static void main (String[] args){
         //initiate
         Scanner sc = new Scanner(System.in);
-        int currentPlayer = 0;
+        int currentPlayer = 1;
         int maxPlayer = 0;
         //List players = new ArrayList<Turn>(); (cancelled)
         //Turn[] players = new Turn[x]; (set at startgame)
@@ -20,7 +20,7 @@ public class Main{
         System.out.println("Masukkan jumlah pemain");
         int n = sc.nextInt();
 
-        Player[] players = new Player[n];
+        Player[] players = new Player[n+1];
         for (int i = 1; i <= n; i++){
             System.out.println("Masukkan nama pemain");
             String nama = sc.next();
@@ -32,13 +32,14 @@ public class Main{
             players[i].start();
         }
 */
-        maxPlayer = n - 1;
+        maxPlayer = n;
 
         //the game
         do{
             printField();
             System.out.println(players[currentPlayer].getName()+"'s turn");
             if(players[currentPlayer].isAlive()) {
+                String nuffsaid = sc.next();
                 players[currentPlayer].turn();
             } else {
                 System.out.println(players[currentPlayer].getName()+" bankrupted");
@@ -50,7 +51,7 @@ public class Main{
 
 
         //end game
-        Player winner = null;
+        Player winner = new Player("AAAAAAA");
         for (int i = 0; i < n; i++){
             if (players[i].isAlive()) {
                 winner = players[i];

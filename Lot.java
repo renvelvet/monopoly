@@ -30,14 +30,19 @@ public class Lot extends Tile implements Property {
 
     public void tileAction(Player player)
     {
-        rent(player);
+        if (ownedBy.getId() == 0 || ownedBy.getId() == player.getId() ){
+
+        } else {
+            rent(player);
+        }
     }
 
     public void chooseAbleAction(Player player, int i) {
 
-        if (ownedBy == null && i == 1) {
+        if (ownedBy.getId() == 0 && i == 1) {
             buy(player);
-        } else if (ownedBy == null && i == 3){
+            System.out.println(name+" terbeli");
+        } else if (ownedBy.getId() == 0 && i == 3){
             // change turn
         } else if ((ownedBy.equals(player) && ownedBy.getGroupownage()[groupNumber] == getTotalTileInGroup()) && i == 2) {
             builtHome(player);

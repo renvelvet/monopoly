@@ -15,7 +15,11 @@ public class Railroad extends Tile implements Property {
     }
 
     public void tileAction(Player player){
-      rent(player);
+        if (ownedBy.getId() == 0 || ownedBy.getId() == player.getId() ){
+
+        } else {
+            rent(player);
+        }
     }
 
     public void chooseAbleAction(Player player, int i)

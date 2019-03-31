@@ -3,9 +3,11 @@ import java.util.Scanner;
 
 public class Kesempatan extends Tile{
     Scanner sc = new Scanner(System.in);
+    Board board;
 
-    public Kesempatan(Player player) {
+    public Kesempatan(Player player, Board board) {
         super(player);
+        this.board = board;
     }
 
     public void askOption(){
@@ -29,13 +31,13 @@ public class Kesempatan extends Tile{
                     player.gain(200);
                 }
                 player.setPosition(24);
-                if(tile[24].ownedBy==null || tile[24].ownedBy.equals(player)){
+                if(board.tile[24].ownedBy==null || board.tile[24].ownedBy.equals(player)){
                     askOption();
                     int opt = sc.nextInt();
                     chooseAbleAction(player, opt);
                 }
                 else {
-                    tile[24].tileAction(player);
+                    board.tile[24].tileAction(player);
                 }
                 break;
             case 2 :
@@ -45,13 +47,13 @@ public class Kesempatan extends Tile{
                     player.gain(200);
                 }
                 player.setPosition(11);
-                if(tile[11].ownedBy==null || tile[11].ownedBy.equals(player)){
+                if(board.tile[11].ownedBy==null || board.tile[11].ownedBy.equals(player)){
                     askOption();
                     int opt = sc.nextInt();
                     chooseAbleAction(player, opt);
                 }
                 else {
-                    tile[11].tileAction(player);
+                    board.tile[11].tileAction(player);
                 }
                 break;
             case 3 :
@@ -80,7 +82,7 @@ public class Kesempatan extends Tile{
                 else{
                     player.getDice().roll();
                     player.cost(player.getDice().rollNumber() * 10);
-                    tile[player.getPosition()].ownedBy.gain(player.getDice().rollNumber() * 10);
+                    board.tile[player.getPosition()].ownedBy.gain(player.getDice().rollNumber() * 10);
                 }
                 break;
             case 4 :
@@ -107,14 +109,14 @@ public class Kesempatan extends Tile{
                 else{
                     System.out.println("Already.");
                 }
-                if(tile[player.getPosition()].ownedBy==null){
+                if(board.tile[player.getPosition()].ownedBy==null){
                     askOption();
                     int opt = sc.nextInt();
                     chooseAbleAction(player, opt);
                 }
                 else{
-                    tile[player.getPosition()].rent(player);
-                    tile[player.getPosition()].rent(player);
+                    //board.tile[player.getPosition()].rent(player);
+                    //board.tile[player.getPosition()].rent(player);
                 }
                 break;
             case 5 :
@@ -132,13 +134,13 @@ public class Kesempatan extends Tile{
                 //go back 3 spaces
                 System.out.println("Go Back Three Spaces.");
                 player.setPosition(player.getPosition() - 3);
-                if(tile[player.getPosition()].ownedBy==null || tile[player.getPosition()].ownedBy.equals(player)){
+                if(board.tile[player.getPosition()].ownedBy==null || board.tile[player.getPosition()].ownedBy.equals(player)){
                     askOption();
                     int opt = sc.nextInt();
                     chooseAbleAction(player, opt);
                 }
                 else {
-                    tile[player.getPosition()].tileAction(player);
+                    board.tile[player.getPosition()].tileAction(player);
                 }
                 break;
             case 8 :
@@ -171,26 +173,26 @@ public class Kesempatan extends Tile{
                     player.gain(200);
                 }
                 player.setPosition(5);
-                if(tile[5].ownedBy==null || tile[5].ownedBy.equals(player)){
+                if(board.tile[5].ownedBy==null || board.tile[5].ownedBy.equals(player)){
                     askOption();
                     int opt = sc.nextInt();
                     chooseAbleAction(player, opt);
                 }
                 else {
-                    tile[5].tileAction(player);
+                    board.tile[5].tileAction(player);
                 }
                 break;
             case 12 :
                 //go to Brastagi
                 System.out.println("Take a walk on Brastagi. Advance token to Brastagi.");
                 player.setPosition(39);
-                if(tile[39].ownedBy==null || tile[39].ownedBy.equals(player)){
+                if(board.tile[39].ownedBy==null || board.tile[39].ownedBy.equals(player)){
                     askOption();
                     int opt = sc.nextInt();
                     chooseAbleAction(player, opt);
                 }
                 else {
-                    tile[39].tileAction(player);
+                    board.tile[39].tileAction(player);
                 }
                 break;
             case 13 :

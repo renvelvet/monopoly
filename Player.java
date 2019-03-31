@@ -19,7 +19,7 @@ public class Player //implements Runnable
 	private int id;
 	private boolean jailed;
 	private boolean jailfree;
-	private Board board;
+	private static Board board = new Board();
 
 	//for turn based
 	private Thread t;
@@ -33,13 +33,12 @@ public class Player //implements Runnable
 		housestats = 0;
 		position = 0;
 		alive = true;
-		groupownage = new int[9];
+		groupownage = new int[13];
 		id = playercount;
 		playercount++;
 		jailed = false;
 		jailfree = false;
 
-		board = new Board();
 		dice = new Dadu();
 	}
 
@@ -49,19 +48,21 @@ public class Player //implements Runnable
 	}
 
 	public void gain (int add){
-		money += add;
+		money = money + add;
 		System.out.println("Mendapat uang "+ add +" rupiah");
 	}
 
 
 	public void cost(int loss){
-		money =- loss;
+		money = money - loss;
 		System.out.println("Membayar "+ loss+ " rupiah");
 
 		if (money + moneys <=0){
+			System.out.println(money +" "+moneys +" "+ money+moneys);
 			//try hypotic
 			alive = false;
-			System.out.println("Mati");
+			playercount--;
+			System.out.println(name + " Mati");
 		}
 	}
 
@@ -118,13 +119,13 @@ public class Player //implements Runnable
 			board.tile[position].tileAction(this);
 
 			//choose
-			if (board.tile[position].isChooseAble()) {
+			//if (board.tile[position].isChooseAble()) {
 				try {
 					Runnable r = new Runnable() {
 						@Override
 						public void run() {
 							//choose code utama
-
+							board.tile[position].askOption();
 							int choice = sc.nextInt();
 							board.tile[position].chooseAbleAction(Player.this, choice);
 						}
@@ -140,11 +141,18 @@ public class Player //implements Runnable
 				} catch (final TimeoutException e) {
 					System.out.println("Waktu habis");
 				} catch (final ExecutionException e) {
+					System.out.println("(bug detected)");
 					e.getCause().printStackTrace();
 				} finally {
 					service.shutdown();
+					try {
+						Thread.sleep(3000);
+						service.awaitTermination(1, TimeUnit.MINUTES);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
 				}
-			}
+			//}
 
 
 		} while (dice.isDouble());

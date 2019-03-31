@@ -3,26 +3,27 @@
 import java.util.ArrayList;
 
 public class Board {
-    public Tile[] tile;
+    public Tile[] tile = new Tile[BOARD_SIZE];
     public Player n;
 
     public static final int BOARD_SIZE = 40;
 
     public Board() {
         n = new Player("STATEBANKDEFAULT");
+        System.out.println("created "+n.getId());
 
         // Space
         tile[0] = new Start(n);
         tile[2] = new DanaUmum(n);
         tile[4] = new PajakJalan(n);
-        tile[7] = new Kesempatan(n);
+        tile[7] = new Kesempatan(n, this);
         tile[10] = new Jail(n);
         tile[17] = new DanaUmum(n);
         tile[20] = new FreePark(n);
-        tile[22] = new Kesempatan(n);
+        tile[22] = new Kesempatan(n, this);
         tile[30] = new GoToJail(n);
         tile[33] = new DanaUmum(n);
-        tile[36] = new Kesempatan(n);
+        tile[36] = new Kesempatan(n, this);
         tile[38] = new PajakIstimewa(n);
 
         // Lot
