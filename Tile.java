@@ -102,6 +102,4 @@ public abstract class Tile {
 
     public abstract void chooseAbleAction(Player player, int i); // Aksi yang dipilih player
 
-    public abstract int getTotalTileInGroup();
-
 }

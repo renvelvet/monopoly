@@ -86,7 +86,8 @@ public class Lot extends Tile implements Property {
     public void builtHome(Player player)
     {
         if (player.getGroupownage()[groupNumber] == getTotalTileInGroup() && homeBuilt <= 4) {
-                this.homeBuilt++;
+                this.homeBuilt++; // Total rumah yang dimiliki player dalam 1 group
+                player.setHousestats(player.getHousestats() + 1); // Total rumah yang dimiliki player
         }
         else
         {
