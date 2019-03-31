@@ -1,6 +1,8 @@
 import java.util.Random;
+import java.util.Scanner;
 
 public class Kesempatan extends Tile{
+    Scanner sc = new Scanner(System.in);
     public void askOption(){
     }
     public void tileAction(Player player){
@@ -36,12 +38,63 @@ public class Kesempatan extends Tile{
 				//if unowned, you may buy it from the bank
 				//if owned, throw dice and pay owner a total 10 times the amount thrown
 				System.out.println("Advance token to nearest Utility. If unowned, you may buy it from the Bank. If owned, throw dice and pay owner a total 10 times the amount thrown.");
+				if(player.getPosition()<12){
+					player.setPosition(12);
+				}
+				else if(player.getPosition()>12 && player.getPosition()<28){
+					player.setPosition(28);
+				}
+				else if(player.getPosition()>28){
+					player.gain(200);
+					player.setPosition(12);
+				}
+				else{
+					System.out.println("Already.");
+				}
+				if(ownedBy==null){
+					askOption();
+					int opt = sc.nextInt();
+					chooseAbleAction(player, opt);
+				}
+				else{
+					player.dice.roll();
+					player.cost(player.dice.rollNumber() * 10);
+					ownedBy.gain(player.dice.rollNumber() * 10);
+				}
 				break;
 			case 4 :
 				//advance to nearest Railroad
 				//if unowned, you may buy it from the bank
 				//if owned, pay owner twice the rental
 				System.out.println("Advance token to the nearest Railroad and pay owner twice the rental to which he/she is otherwise entitled. If Railroad is unowned, you may buy it from the Bank.");
+				if(player.getPosition()<5){
+					player.setPosition(5);
+				}
+				else if(player.getPosition()>5 && player.getPosition()<15){
+					player.setPosition(15);
+				}
+				else if(player.getPosition()>15 && player.getPosition()<25){
+					player.setPosition(25);
+				}
+				else if(player.getPosition()>25 && player.getPosition()<35){
+					player.setPosition(35);
+				}
+				else if(player.getPosition()>35){
+					player.gain(200);
+					player.setPosition(5);
+				}
+				else{
+					System.out.println("Already.");
+				}
+				if(ownedBy==null){
+					askOption();
+					int opt = sc.nextInt();
+					chooseAbleAction(player, opt);
+				}
+				else{
+					player.cost(getTotalRent() * 2);
+					ownedBy.gain(getTotalRent() * 2);
+				}
 				break;
 			case 5 :
 				//collect 50
