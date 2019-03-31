@@ -16,6 +16,7 @@ public class Player //implements Runnable
 	public static int playercount = 0;
 	private int id;
 	private boolean jailed;
+	private boolean jailfree;
 	private Board board;
 
 	//for turn based
@@ -33,7 +34,9 @@ public class Player //implements Runnable
 		playercount++;
 		id = playercount;
 		jailed = false;
+		jailfree = false;
 
+		board = new Board();
 		dice = new Dadu();
 	}
 
@@ -85,11 +88,15 @@ public class Player //implements Runnable
 
 			//preemptive
 			if (jailed){
-				System.out.println("Ingin membayar 50 untuk langsung bebas?");
+				System.out.println("Ingin membayar 50 atau pakai tiket untuk langsung bebas?");
 				System.out.println("1. Ya angka lain untuk Tidak");
 				int jailedChoice = sc.nextInt();
 				if (jailedChoice == 1){
-					cost(50);
+					if (jailfree){
+						jailfree = false;
+					} else {
+						cost(50);
+					}
 					jailed = false;
 				}
 			}
@@ -235,5 +242,21 @@ public class Player //implements Runnable
 
 	public void setDice(Dadu dice) {
 		this.dice = dice;
+	}
+
+	public boolean isJailfree() {
+		return jailfree;
+	}
+
+	public void setJailfree(boolean jailfree) {
+		this.jailfree = jailfree;
+	}
+
+	public Board getBoard() {
+		return board;
+	}
+
+	public void setBoard(Board board) {
+		this.board = board;
 	}
 }
