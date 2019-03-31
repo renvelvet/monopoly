@@ -10,7 +10,7 @@ public class DanaUmum extends Tile{
 			case 0 :
 				//advance to GoStart
 				System.out.println("Advance to GoStart.");
-				player.setPosition(1);
+				player.setPosition(0);
 				player.gain(200);
 				break;
 			case 1 :
@@ -37,7 +37,7 @@ public class DanaUmum extends Tile{
 			case 5 :
 				//go to Jail
 				System.out.println("Go to Jail.");
-				player.setPosition(11);
+				player.setPosition(10);
 				break;
 			case 6 :
 				//collect 50 from every player
