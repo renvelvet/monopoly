@@ -50,6 +50,13 @@ public class Main{
 
 
         //end game
+        Player winner = null;
+        for (int i = 0; i < n; i++){
+            if (players[i].isAlive()) {
+                winner = players[i];
+            }
+        }
+        System.out.println("Pemenangnya adalah"+ winner.getName());
 
 
 
@@ -65,6 +72,17 @@ public class Main{
     }
 
     public static void printField(){
+        System.out.println("S L C L L R L L U L J");
+        System.out.println("L - - - - - - - - - L");
+        System.out.println("L - - - - - - - - - L");
+        System.out.println("O - - - - - - - - - O");
+        System.out.println("L - - - - - - - - - L");
+        System.out.println("R - - - - - - - - - R");
+        System.out.println("L - - - - - - - - - C");
+        System.out.println("L - - - - - - - - - L");
+        System.out.println("U - - - - - - - - - T");
+        System.out.println("L - - - - - - - - - L");
+        System.out.println("J L L C L R T L O L S");
 
     }
 

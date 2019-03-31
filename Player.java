@@ -15,12 +15,14 @@ public class Player //implements Runnable
 	private int[] groupownage;
 	public static int playercount = 0;
 	private int id;
+	private boolean jailed;
+	private Board board;
 
 	//for turn based
 	private Thread t;
 	private Dadu dice;
 	private Scanner sc;
-    ExecutorService service = Executors.newSingleThreadExecutor();
+	private ExecutorService service = Executors.newSingleThreadExecutor();
 
 	public Player (String nama){
 		name = nama;
@@ -30,6 +32,7 @@ public class Player //implements Runnable
 		groupownage = new int[9];
 		playercount++;
 		id = playercount;
+		jailed = false;
 
 		dice = new Dadu();
 	}
@@ -38,80 +41,97 @@ public class Player //implements Runnable
 		System.out.println();
 		//dipake kalo perturnnya pake player
 	}
-	
+
 	public void gain (int add){
 		money += add;
-		System.out.println("Mendapat uang "+ add);
+		System.out.println("Mendapat uang "+ add +" rupiah");
 	}
-	
-	
+
+
 	public void cost(int loss){
 		money =- loss;
-		System.out.println("Membayar "+ loss);
-		
+		System.out.println("Membayar "+ loss+ " rupiah");
+
 		if (money <=0){
 			//try hypotic
 			alive = false;
 			System.out.println("Mati");
 		}
 	}
-	
+
 	public void move (int step){
-		System.out.println("Berjalan "+step+" petak");
-		for (int i = 1; i <= step; i++){
-			if (position == 40){
-				position = 0;
-				gain(2000);
-			} else {
-				position++;
+		if (jailed && !dice.isDouble()){
+			System.out.println("Dipenjara, tidak bisa bergerak turn ini");
+			jailed = false;
+		} else {
+			System.out.println("Berjalan " + step + " petak");
+			jailed = false;
+			for (int i = 1; i <= step; i++) {
+				if (position == 40) {
+					position = 0;
+					gain(200);
+				} else {
+					position++;
+				}
 			}
 		}
 	}
 
 
 	//what happen in every turn
-    public void turn() {
-        do {
-            System.out.println("Giliran "+ name);
+	public void turn() { //uncompleted
+		do {
+			System.out.println("Giliran "+ name);
 
-            //roll and move
-            dice.roll();
-            move(dice.rollNumber());
+			//preemptive
+			if (jailed){
+				System.out.println("Ingin membayar 50 untuk langsung bebas?");
+				System.out.println("1. Ya angka lain untuk Tidak");
+				int jailedChoice = sc.nextInt();
+				if (jailedChoice == 1){
+					cost(50);
+					jailed = false;
+				}
+			}
 
-            //trigger
-            //tile[position].trigger(this);
+			//roll and move
+			dice.roll();
+			move(dice.rollNumber());
 
-            //choose
-            try {
-                Runnable r = new Runnable() {
-                    @Override
-                    public void run() {
-                        //choose code utama
-                        String choice = sc.next();
-                        //tile.choose(this, String);
-                    }
-                };
+			//trigger
+			board.tile[position].tileAction(this);
 
-                Future<?> f = service.submit(r);
+			//choose
+			if (board.tile[position].isChooseAble()) {
+				try {
+					Runnable r = new Runnable() {
+						@Override
+						public void run() {
+							//choose code utama
 
-                f.get(2, TimeUnit.MINUTES);     // attempt the task for two minutes
-            }
-            catch (final InterruptedException e) {
-                // The thread was interrupted during sleep, wait or join
-            }
-            catch (final TimeoutException e) {
-                // Took too long!
-            }
-            catch (final ExecutionException e) {
-                // An exception from within the Runnable task
-            }
-            finally {
-                service.shutdown();
-            }
+							int choice = sc.nextInt();
+							board.tile[position].chooseAbleAction(this, String);
+						}
+					};
+
+					Future<?> f = service.submit(r);
+
+					f.get(30000, TimeUnit.MILLISECONDS);     // attempt the task for 30 secs
+				} catch (final InterruptedException e) {
+					System.out.println("interrupted, you are unlucky");
+					e.getCause().printStackTrace();
+				} catch (final TimeoutException e) {
+					System.out.println("Waktu habis");
+				} catch (final ExecutionException e) {
+					e.getCause().printStackTrace();
+				} finally {
+					service.shutdown();
+				}
+			}
 
 
-        } while (dice.isDouble());
-    }
+		} while (dice.isDouble());
+	}
 /*
 	@Override //what happen in every turn
 	public void run() {
@@ -201,5 +221,19 @@ public class Player //implements Runnable
 		this.id = number;
 	}
 
-	
+	public boolean isJailed() {
+		return jailed;
+	}
+
+	public void setJailed(boolean jailed) {
+		this.jailed = jailed;
+	}
+
+	public Dadu getDice() {
+		return dice;
+	}
+
+	public void setDice(Dadu dice) {
+		this.dice = dice;
+	}
 }
