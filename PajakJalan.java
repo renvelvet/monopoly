@@ -1,6 +1,6 @@
 public class PajakJalan extends Tile{
-    public PajakJalan(){
-        super();
+    public PajakJalan(Player player){
+        super(player);
     }
 
     public void tileAction(Player player){

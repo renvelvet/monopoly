@@ -7,6 +7,10 @@ public class DanaUmum extends Tile{
     Scanner s = new Scanner(System.in);
     int c; // choice
 
+    public DanaUmum(Player player) {
+        super(player);
+    }
+
     public void askOption(){
         switch(act) {
             case 4 :

@@ -1,8 +1,8 @@
 public class Utilities extends Tile implements Property {
 
-    public Utilities (String name, boolean isOwnable, int groupNumber, int price)
+    public Utilities (String name, boolean isOwnable, int groupNumber, int price, Player player)
     {
-        super(name, true, 10, price);
+        super(name, true, 10, price, player);
     }
 
     public void setTotalRent(int totalRent) {

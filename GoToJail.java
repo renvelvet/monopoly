@@ -1,6 +1,6 @@
 public class GoToJail extends Tile{
-    public GoToJail(){
-        super();
+    public GoToJail(Player player){
+        super(player);
     }
 
     public void tileAction(Player player){

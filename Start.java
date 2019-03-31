@@ -1,6 +1,6 @@
 public class Start extends Tile {
-    public Start(){
-        super();
+    public Start(Player player){
+        super(player);
     }
 
     public void tileAction(Player player){
@@ -10,7 +10,7 @@ public class Start extends Tile {
     public void chooseAbleAction(Player player, int i){
 
     }
-    
+
     public void askOption(){
 
     }

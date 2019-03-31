@@ -1,7 +1,7 @@
 public class Railroad extends Tile implements Property {
 
-    public Railroad(String name, boolean isOwnable, int groupNumber, int price) {
-        super(name, true, 9, price);
+    public Railroad(String name, boolean isOwnable, int groupNumber, int price, Player player) {
+        super(name, true, 9, price, player);
     }
 
     public void setTotalRent(int totalRent) {

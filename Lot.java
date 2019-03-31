@@ -5,9 +5,10 @@ public class Lot extends Tile implements Property {
     private int homeBuilt;
     private boolean wantToBuiltHome;
 
-    public Lot(String name, boolean isOwnable, int groupNumber, int price) {
 
-        super(name,true, groupNumber, price);
+    public Lot(String name, boolean isOwnable, int groupNumber, int price, Player player) {
+
+        super(name, true, groupNumber, price, player);
         this.wantToBuiltHome = false;
         this.homeBuilt = 0;
         }

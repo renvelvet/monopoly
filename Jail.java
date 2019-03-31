@@ -2,19 +2,19 @@
 //jika player melewati atau tiba di tile jail
 //
 public class Jail extends Tile{
-    public Jail(){
-        super();
+    public Jail(Player player){
+        super(player);
     }
-    
-    
+
+
     public void tileAction(Player player){
-        
+
     }
 
     public void chooseAbleAction(Player player, int i){
 
     }
-    
+
     public void askOption(){
 
     }
