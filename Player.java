@@ -1,92 +1,177 @@
-/* Player.java */
-/* Modified Player.java from github.com/zachcannon */
+import java.util.Scanner;
 
-import java.util.Random;
+public class Player //implements Runnable
+{
 
-public class Player implements Dadu {
-    private int totalFace; // Total face dari dadu yang dilempar
-    private int rollValue = 0;
-    static Random r = new r(System.nanoTime());
+	//self mandratory
+	private String name;
+	private int money;
+	private boolean alive;
 
-    private Tile currentPosition;
-    private int money;
+	//for other purpose
+	private int position;
+	private int[] groupownage;
+	public static int playercount = 0;
+	private int number;
 
-    private int id;
-    private String name;
+	//for turn based
+	private Thread t;
+	private Dadu dice;
+	private Scanner sc;
+	
+	public Player (String nama){
+		name = nama;
+		money = 9000; //duit awal berapa?
+		position = 0;
+		alive = true;
+		groupownage = new int[9];
+		playercount++;
+		number = playercount;
 
-    // Constructor
-    public Player(Tile currentPosition)
-    {
-        this.currentPosition = currentPosition;
-        this.money = 20000;
-    }
+		dice = new Dadu();
+	}
 
-    // Implementasi interface Dadu
-    public void rollDice()
-    {
+	public void trigger(){
+		System.out.println();
+		//dipake kalo perturnnya pake player
+	}
+	
+	public void gain (int add){
+		money += add;
+		System.out.println("Mendapat uang "+ add);
+	}
+	
+	
+	public void cost(int loss){
+		money =- loss;
+		System.out.println("Membayar "+ loss);
+		
+		if (money <=0){
+			//try hypotic
+			alive = false;
+			System.out.println("Mati");
+		}
+	}
+	
+	public void move (int step){
+		System.out.println("Berjalan "+step+" petak");
+		for (int i = 1; i <= step; i++){
+			if (position == 40){
+				position = 0;
+				gain(2000);
+			} else {
+				position++;
+			}
+		}
+	}
 
-        rollValue = r.nextInt(6) + 1;
-    }
-    public int getLastRollValue()
-    {
-        return rollValue;
-    }
 
-    // Player's turn
-    public void playerTurn()
-    {
-        // Melempar dadu
-        rollDice();
+	//what happen in every turn
+    public void turn() {
+        do {
+            System.out.println("Giliran "+ name);
 
-        // Player melangkah sejumlah totalFace
-        this.movePosition();
-    }
-    private void rollTheDice()
-    {
-        totalFace = 0;
-        rollDice();
-        totalFace += getLastRollValue();
-        rollDice();
-        totalFace += getLastRollValue();
-    }
-    private int getTotalFace()
-    {
-        return totalFace;
-    }
+            //roll and move
+            dice.roll();
+            move(dice.rollNumber());
 
-    // Player ID
-    public int getID()
-    {
-        return id;
-    }
+            //trigger
+            //tile[position].trigger();
 
-    // Player Name
-    public String getName()
-    {
-        return name;
-    }
+            //choose
+            String choice = sc.next();
+            //tile.choose(String);
 
-    // info Money
-    public int getMoney()
-    {
-        return money;
+        } while (dice.isDouble());
     }
-    public void changeMoney(int amount)
-    {
-        money += amount;
-    }
+/*
+	@Override //what happen in every turn
+	public void run() {
+		do {
+			System.out.println("Giliran "+ name);
 
-    // Position in tile
-    public Tile getCurrentPosition()
-    {
-        return currentPosition;
-    }
-    public void performTileAction()
-    {
-        currentPosition.interactWithTileAction(this);
-    }
-    public void movePosition()
-    {
-        currentPosition = currentPosition.getNextTile();
-    }
+			//roll and move
+			dice.roll();
+			move(dice.rollNumber());
+
+			//trigger
+			//tile[position].trigger();
+
+			//choose
+			String choice = sc.next();
+			//tile.choose(String);
+
+		} while (dice.isDouble());
+	}
+
+	public void start(){
+		System.out.println();
+		if (t == null) {
+			t = new Thread(this, name);
+			t.start();
+		}
+	}
+*/
+
+
+
+
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int getMoney() {
+		return money;
+	}
+
+	public void setMoney(int money) {
+		this.money = money;
+	}
+
+	public int getPosition() {
+		return position;
+	}
+
+	public void setPosition(int position) {
+		this.position = position;
+	}
+
+	public boolean isAlive() {
+		return alive;
+	}
+
+	public void setAlive(boolean alive) {
+		this.alive = alive;
+	}
+
+	public int[] getGroupownage() {
+		return groupownage;
+	}
+
+	public void setGroupownage(int[] groupownage) {
+		this.groupownage = groupownage;
+	}
+
+	public static int getPlayercount() {
+		return playercount;
+	}
+
+	public static void setPlayercount(int playercount) {
+		Player.playercount = playercount;
+	}
+
+	public int getNumber() {
+		return number;
+	}
+
+	public void setNumber(int number) {
+		this.number = number;
+	}
+
+	
 }

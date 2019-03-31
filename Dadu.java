@@ -1,40 +1,44 @@
-/* Dadu.java */
-/* Modified Die.java from github.com/zachcannon */
+import java.util.Random;
 
-public interface Dadu {
+public class Dadu{
+	private int a;
+	private int b;
+	private boolean dobel;
+	Random r;
+	
+	public Dadu(){
+		a = 1 + r.nextInt(6);
+		b = 1 + r.nextInt(6);
+		if (a==b) {
+			dobel = true;
+		} else {
+			dobel = false;
+		}
+		System.out.println("Dadu: "+a+" dan "+b);
+	}
+	
+	public void roll(){
+		a = 1 + r.nextInt(6);
+		b = 1 + r.nextInt(6);
+		if (a==b) {
+			dobel = true;
+		} else {
+			dobel = false;
+		}
+		System.out.println("Dadu yang didapat "+a+" dan "+b);
+	}
 
-    public void rollDice();
+	public int getOne(){
+		return 1 + r.nextInt(6);
+	}
+	
+	public int rollNumber(){
+		return a+b;
+	}
+	
+	public boolean isDouble(){
+		return dobel;
+	}
 
-    public int getLastRollValue();
 
-/*
-    int[] face = new int[2];
-    int sumFace;
-
-    // Face dadu yang didapatkan pemain
-    public void printFace()
-    {
-        Random rand = new Random();
-
-        face[0] = 1+rand.nextInt(6);
-        face[1] = 1+rand.nextInt(6);
-
-        System.out.println(this.face[0] + " " + this.face[1]);
-    }
-
-    // TotalWalk pemain
-    public int getSumFace()
-    {
-        sumFace = face[0] + face[1];
-        return sumFace;
-    }
-*/
-    /* Test
-    public static void main(String[] args)
-    {
-        Dadu d = new Dadu();
-        d.printFace();
-        System.out.println(d.getSumFace());
-    }
-    */
 }
