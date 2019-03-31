@@ -1,4 +1,6 @@
 import java.util.Scanner;
+import java.util.Timer;
+import java.util.concurrent.*;
 
 public class Player //implements Runnable
 {
@@ -12,21 +14,22 @@ public class Player //implements Runnable
 	private int position;
 	private int[] groupownage;
 	public static int playercount = 0;
-	private int number;
+	private int id;
 
 	//for turn based
 	private Thread t;
 	private Dadu dice;
 	private Scanner sc;
-	
+    ExecutorService service = Executors.newSingleThreadExecutor();
+
 	public Player (String nama){
 		name = nama;
-		money = 9000; //duit awal berapa?
+		money = 1500; //duit awal berapa?
 		position = 0;
 		alive = true;
 		groupownage = new int[9];
 		playercount++;
-		number = playercount;
+		id = playercount;
 
 		dice = new Dadu();
 	}
@@ -76,11 +79,36 @@ public class Player //implements Runnable
             move(dice.rollNumber());
 
             //trigger
-            //tile[position].trigger();
+            //tile[position].trigger(this);
 
             //choose
-            String choice = sc.next();
-            //tile.choose(String);
+            try {
+                Runnable r = new Runnable() {
+                    @Override
+                    public void run() {
+                        //choose code utama
+                        String choice = sc.next();
+                        //tile.choose(this, String);
+                    }
+                };
+
+                Future<?> f = service.submit(r);
+
+                f.get(2, TimeUnit.MINUTES);     // attempt the task for two minutes
+            }
+            catch (final InterruptedException e) {
+                // The thread was interrupted during sleep, wait or join
+            }
+            catch (final TimeoutException e) {
+                // Took too long!
+            }
+            catch (final ExecutionException e) {
+                // An exception from within the Runnable task
+            }
+            finally {
+                service.shutdown();
+            }
+
 
         } while (dice.isDouble());
     }
@@ -165,12 +193,12 @@ public class Player //implements Runnable
 		Player.playercount = playercount;
 	}
 
-	public int getNumber() {
-		return number;
+	public int getId() {
+		return id;
 	}
 
-	public void setNumber(int number) {
-		this.number = number;
+	public void setId(int number) {
+		this.id = number;
 	}
 
 	
