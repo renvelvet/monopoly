@@ -24,7 +24,7 @@ public class Player //implements Runnable
 	//for turn based
 	private Thread t;
 	private Dadu dice;
-	private Scanner sc;
+	private Scanner sc = new Scanner(System.in);
 	private ExecutorService service = Executors.newSingleThreadExecutor();
 
 	public Player (String nama){
@@ -34,8 +34,8 @@ public class Player //implements Runnable
 		position = 0;
 		alive = true;
 		groupownage = new int[9];
-		playercount++;
 		id = playercount;
+		playercount++;
 		jailed = false;
 		jailfree = false;
 

@@ -24,7 +24,7 @@ public class Main{
         for (int i = 1; i <= n; i++){
             System.out.println("Masukkan nama pemain");
             String nama = sc.next();
-            players[i-1] = new Player(nama);
+            players[i] = new Player(nama);
         }
 /*
         for (int i = 0; i < n; i++){
@@ -64,8 +64,8 @@ public class Main{
     }
 
     public static int next(int current, int max){
-        if (current >= max){
-            return 0;
+        if (current == max){
+            return 1;
         } else {
             return current + 1;
         }
