@@ -73,9 +73,9 @@ public class Kesempatan extends Tile{
 					chooseAbleAction(player, opt);
 				}
 				else{
-					player.dice.roll();
-					player.cost(player.dice.rollNumber() * 10);
-					tile[player.getPosition()].ownedBy.gain(player.dice.rollNumber() * 10);
+					player.getDice().roll();
+					player.cost(player.getDice().rollNumber() * 10);
+					tile[player.getPosition()].ownedBy.gain(player.getDice().rollNumber() * 10);
 				}
 				break;
 			case 4 :
@@ -152,7 +152,7 @@ public class Kesempatan extends Tile{
 			case 9 :
 				//for each house pay 25
 				System.out.println("Make general repairs on all your property: For each house pay $25.");
-				
+				player.cost(player.getHousestats() * 25);
 				break;
 			case 10 :
 				//pay tax 15
