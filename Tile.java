@@ -11,12 +11,22 @@ public abstract class Tile {
     protected int grupSize;
     protected boolean chooseAble;
 
+    // Untuk Property
     public Tile(String name, boolean isOwnable, int groupNumber, int price) {
         this.name = name;
         this.isOwnable = isOwnable;
         this.groupNumber = groupNumber;
         this.ownedBy = null;
         this.price = price;
+    }
+
+    // Untuk Space
+    public Tile() {
+        this.name = null;
+        this.isOwnable = false;
+        this.groupNumber = 0;
+        this.ownedBy = null;
+        this.price = 0;
     }
 
     // Attribute for Property.java
