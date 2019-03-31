@@ -9,7 +9,8 @@ public class Player //implements Runnable
 	private String name;
 	private int money;
 	private boolean alive;
-	public static int moneys;
+	public static int moneys = 0;
+	private int housestats;
 
 	//for other purpose
 	private int position;
@@ -29,6 +30,7 @@ public class Player //implements Runnable
 	public Player (String nama){
 		name = nama;
 		money = 1500; //duit awal berapa?
+		housestats = 0;
 		position = 0;
 		alive = true;
 		groupownage = new int[9];
@@ -124,8 +126,9 @@ public class Player //implements Runnable
 							//choose code utama
 
 							int choice = sc.nextInt();
-							board.tile[position].chooseAbleAction(this, String);
+							board.tile[position].chooseAbleAction(Player.this, choice);
 						}
+
 					};
 
 					Future<?> f = service.submit(r);
@@ -265,5 +268,13 @@ public class Player //implements Runnable
 
 	public void setBoard(Board board) {
 		this.board = board;
+	}
+
+	public int getHousestats() {
+		return housestats;
+	}
+
+	public void setHousestats(int housestats) {
+		this.housestats = housestats;
 	}
 }
