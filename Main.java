@@ -9,7 +9,7 @@ public class Main{
     public static void main (String[] args){
         //initiate
         Scanner sc = new Scanner(System.in);
-        int currentPlayer = 1;
+        int currentPlayer = 0;
         int maxPlayer = 0;
         //List players = new ArrayList<Turn>(); (cancelled)
         //Turn[] players = new Turn[x]; (set at startgame)
@@ -20,7 +20,7 @@ public class Main{
         System.out.println("Masukkan jumlah pemain");
         int n = sc.nextInt();
 
-        Player[] players = new Player[n+1];
+        Player[] players = new Player[n];
         for (int i = 1; i <= n; i++){
             System.out.println("Masukkan nama pemain");
             String nama = sc.next();
@@ -32,20 +32,14 @@ public class Main{
             players[i].start();
         }
 */
-        maxPlayer = n;
+        maxPlayer = n - 1;
 
         //the game
         do{
             printField();
             System.out.println(players[currentPlayer].getName()+"'s turn");
             if(players[currentPlayer].isAlive()) {
-                try {
-                    Thread.sleep(2000);
-                    players[currentPlayer].turn();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-
+                players[currentPlayer].turn();
             } else {
                 System.out.println(players[currentPlayer].getName()+" bankrupted");
             }
@@ -56,15 +50,11 @@ public class Main{
 
 
         //end game
-        Player winner = new Player("AAAAAAA");
+        Player winner = null;
         for (int i = 0; i < n; i++){
             if (players[i].isAlive()) {
                 winner = players[i];
             }
-        }
-
-        for (int i = 1; i <= n; i++){
-            players[i].service.shutdown();
         }
         System.out.println("Pemenangnya adalah"+ winner.getName());
 
