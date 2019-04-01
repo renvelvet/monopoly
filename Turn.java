@@ -1,8 +1,9 @@
 import java.util.Scanner;
 
-public class Turn implements Runnable{
+public class Turn implements Runnable{ //DEPRECATED
 
-
+    //THIS CLASS ISN'T USED AT ALL
+    
     private Thread t;
     private Player player;
     private Dadu dice;
