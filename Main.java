@@ -39,8 +39,13 @@ public class Main{
             printField();
             System.out.println(players[currentPlayer].getName()+"'s turn");
             if(players[currentPlayer].isAlive()) {
-                String nuffsaid = sc.next();
-                players[currentPlayer].turn();
+                try {
+                    Thread.sleep(2000);
+                    players[currentPlayer].turn();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
             } else {
                 System.out.println(players[currentPlayer].getName()+" bankrupted");
             }
@@ -56,6 +61,10 @@ public class Main{
             if (players[i].isAlive()) {
                 winner = players[i];
             }
+        }
+
+        for (int i = 1; i <= n; i++){
+            players[i].service.shutdown();
         }
         System.out.println("Pemenangnya adalah"+ winner.getName());
 

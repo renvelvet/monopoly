@@ -25,7 +25,7 @@ public class Player //implements Runnable
 	private Thread t;
 	private Dadu dice;
 	private Scanner sc = new Scanner(System.in);
-	private ExecutorService service = Executors.newSingleThreadExecutor();
+	public ExecutorService service = Executors.newSingleThreadExecutor();
 
 	public Player (String nama){
 		name = nama;
@@ -144,18 +144,24 @@ public class Player //implements Runnable
 					System.out.println("(bug detected)");
 					e.getCause().printStackTrace();
 				} finally {
-					service.shutdown();
+					//service.shutdown();
+
 					try {
-						Thread.sleep(3000);
-						service.awaitTermination(1, TimeUnit.MINUTES);
+						//service.awaitTermination(30, TimeUnit.SECONDS);
+						Thread.sleep(1000);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
+
 				}
 			//}
 
 
 		} while (dice.isDouble());
+	}
+
+	public void theend(){
+		service.shutdown();
 	}
 /*
 	@Override //what happen in every turn

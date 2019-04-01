@@ -4,6 +4,7 @@ public class PajakJalan extends Tile{
     }
 
     public void tileAction(Player player){
+        System.out.println(player.getName()+ " membayar pajak jalan");
         player.cost(100);
     }
 

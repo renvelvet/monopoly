@@ -13,6 +13,7 @@ public class Kesempatan extends Tile{
     public void askOption(){
     }
     public void tileAction(Player player){
+        System.out.println("Kesempatan "+player.getName());
         Random r = new Random();
         int act = r.nextInt(16);
         switch(act){

@@ -23,6 +23,7 @@ public class DanaUmum extends Tile{
     }
 
     public void tileAction(Player player){
+        System.out.println("Dana Umum" + player.getName());
         switch(act){
             case 0 :
                 //advance to GoStart

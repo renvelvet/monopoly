@@ -12,7 +12,7 @@ public class FreePark extends Tile {
     }
 
     public void tileAction(Player player){
-
+        System.out.println("Parkir bebas "+ player.getName());
     }
 
 }

@@ -8,6 +8,7 @@ public class Jail extends Tile{
 
 
     public void tileAction(Player player){
+        System.out.println(player.getName()+" melewati penjara");
 
     }
 

@@ -16,6 +16,7 @@ public class Utilities extends Tile implements Property {
     }
 
     public void tileAction(Player player){
+        System.out.println(player.getName()+ " telah tiba di "+ name);
         if (ownedBy.getId() == 0 || ownedBy.getId() == player.getId() ){
 
         } else {
@@ -52,6 +53,8 @@ public class Utilities extends Tile implements Property {
 
         ownedBy.gain(totalRent);
         player.cost(totalRent);
+
+        System.out.println(player.getName()+ " membayar denda kepada " + ownedBy.getName() + " sebesar " + totalRent + " rupiah");
     }
 
     // implementasi method untuk membeli
@@ -59,6 +62,8 @@ public class Utilities extends Tile implements Property {
     {
         player.cost(price);
         ownedBy = player;
+
+        System.out.println(player.getName()+ " membeli " +name);
 
         int[] a = player.getGroupownage();
         a[groupNumber] = a[groupNumber] + 1;
